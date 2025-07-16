@@ -1,0 +1,494 @@
+/* AI Jannah Game Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gold: #D4AF37;
+    --primary-green: #2E8B57;
+    --primary-blue: #1E3A8A;
+    --primary-white: #FEFEFE;
+    --accent-teal: #008B8B;
+    --dark-green: #1F4E3D;
+    --light-gold: #F4E4A6;
+    --gradient-bg: linear-gradient(135deg, #1E3A8A 0%, #2E8B57 50%, #D4AF37 100%);
+    --text-primary: #2C3E50;
+    --text-secondary: #7F8C8D;
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --islamic-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.1'%3E%3Cpath d='M20 20c0 11.046-8.954 20-20 20v-40c11.046 0 20 8.954 20 20zM0 20c0-11.046 8.954-20 20-20v40c-11.046 0-20-8.954-20-20z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Arabic text styling */
+.arabic-text {
+    font-family: 'Amiri', serif;
+    direction: rtl;
+    text-align: right;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-content {
+    text-align: center;
+    color: var(--primary-white);
+}
+
+.islamic-pattern {
+    width: 80px;
+    height: 80px;
+    background: var(--islamic-pattern);
+    border: 3px solid var(--primary-gold);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-content h1 {
+    font-family: 'Amiri', serif;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-gold);
+}
+
+.loading-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.loading-progress {
+    height: 100%;
+    background: var(--primary-gold);
+    width: 0%;
+    animation: loading 3s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+}
+
+/* Game Container */
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-areas: 
+        "top-ui top-ui"
+        "canvas side-panel"
+        "action-bar side-panel";
+    grid-template-rows: 80px 1fr 100px;
+    grid-template-columns: 1fr 350px;
+    gap: 10px;
+    padding: 10px;
+    background: var(--islamic-pattern);
+}
+
+/* Top UI */
+#top-ui {
+    grid-area: top-ui;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+}
+
+.currency-display {
+    display: flex;
+    gap: 30px;
+}
+
+.hasanat-counter, .knowledge-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(45deg, var(--primary-gold), var(--light-gold));
+    padding: 8px 16px;
+    border-radius: 25px;
+    color: var(--text-primary);
+    font-weight: 600;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+
+.player-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.level-display {
+    background: var(--primary-blue);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.prayer-time {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Game Canvas */
+#game-canvas {
+    grid-area: canvas;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Side Panel */
+#side-panel {
+    grid-area: side-panel;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+}
+
+.panel-tab {
+    padding: 15px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.panel-tab:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.panel-tab.active {
+    background: var(--primary-gold);
+    color: white;
+    font-weight: 600;
+}
+
+.panel-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: block;
+}
+
+.panel h3 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--primary-gold);
+    padding-bottom: 8px;
+}
+
+.garden-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: rgba(46, 139, 87, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-green);
+}
+
+/* AI Chat */
+.ai-avatar {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#noor-dialogue {
+    background: rgba(30, 58, 138, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--primary-blue);
+}
+
+.noor-input {
+    display: flex;
+    gap: 10px;
+}
+
+#noor-chat {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid var(--primary-gold);
+    border-radius: 8px;
+    outline: none;
+}
+
+#noor-send {
+    padding: 10px 20px;
+    background: var(--primary-gold);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#noor-send:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+/* Community Features */
+.community-btn {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.community-btn:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+/* Action Bar */
+#action-bar {
+    grid-area: action-bar;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 15px 20px;
+    background: linear-gradient(45deg, var(--primary-green), var(--accent-teal));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.action-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+}
+
+.action-btn .icon {
+    font-size: 1.5rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-soft);
+}
+
+.modal-content h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.close-modal {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-gold);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    #game-container {
+        grid-template-areas: 
+            "top-ui"
+            "canvas"
+            "side-panel"
+            "action-bar";
+        grid-template-rows: 80px 1fr 200px 100px;
+        grid-template-columns: 1fr;
+    }
+    
+    #side-panel {
+        max-height: 200px;
+    }
+    
+    .panel-content {
+        max-height: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .currency-display {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .player-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    #action-bar {
+        padding: 10px;
+    }
+    
+    .action-btn {
+        padding: 10px 15px;
+        min-width: 60px;
+    }
+    
+    .action-btn .icon {
+        font-size: 1.2rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Islamic Geometric Patterns */
+.geometric-border {
+    position: relative;
+    overflow: hidden;
+}
+
+.geometric-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--islamic-pattern);
+    opacity: 0.1;
+    pointer-events: none;
+}

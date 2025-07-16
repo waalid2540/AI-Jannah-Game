@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Jannah - Islamic Garden Game</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="islamic-pattern"></div>
+            <h1>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h1>
+            <p>AI Jannah - Your Journey to Paradise</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <!-- Top UI Bar -->
+        <div id="top-ui">
+            <div class="currency-display">
+                <div class="hasanat-counter">
+                    <span class="icon">✨</span>
+                    <span id="hasanat-amount">0</span>
+                    <span class="label">Hasanat</span>
+                </div>
+                <div class="knowledge-counter">
+                    <span class="icon">📖</span>
+                    <span id="knowledge-amount">0</span>
+                    <span class="label">Knowledge</span>
+                </div>
+            </div>
+            <div class="player-info">
+                <div class="level-display">
+                    <span>Level</span>
+                    <span id="player-level">1</span>
+                </div>
+                <div class="prayer-time">
+                    <span id="current-prayer">Fajr in 2h 30m</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Game Canvas -->
+        <div id="game-canvas"></div>
+
+        <!-- Side Panel -->
+        <div id="side-panel">
+            <div class="panel-tab active" data-panel="garden">🌱 Garden</div>
+            <div class="panel-tab" data-panel="seeds">🌿 Seeds</div>
+            <div class="panel-tab" data-panel="noor">🤖 Noor AI</div>
+            <div class="panel-tab" data-panel="quests">📋 Quests</div>
+            <div class="panel-tab" data-panel="community">👥 Ummah</div>
+
+            <div class="panel-content">
+                <div id="garden-panel" class="panel active">
+                    <h3>Your Spiritual Garden</h3>
+                    <div class="garden-stats">
+                        <div class="stat">
+                            <span>Plants Growing:</span>
+                            <span id="plants-count">0</span>
+                        </div>
+                        <div class="stat">
+                            <span>Knowledge Trees:</span>
+                            <span id="knowledge-trees">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="seeds-panel" class="panel">
+                    <h3>Sacred Seeds</h3>
+                    <div id="seeds-inventory"></div>
+                </div>
+
+                <div id="noor-panel" class="panel">
+                    <h3>Noor - Your AI Guide</h3>
+                    <div class="ai-avatar">🌟</div>
+                    <div id="noor-dialogue">
+                        <p>Assalamu Alaikum! I'm Noor, your Islamic learning companion. How can I help you grow spiritually today?</p>
+                    </div>
+                    <div class="noor-input">
+                        <input type="text" id="noor-chat" placeholder="Ask Noor about Islam...">
+                        <button id="noor-send">Send</button>
+                    </div>
+                </div>
+
+                <div id="quests-panel" class="panel">
+                    <h3>Daily Spiritual Quests</h3>
+                    <div id="quests-list"></div>
+                </div>
+
+                <div id="community-panel" class="panel">
+                    <h3>Ummah Community</h3>
+                    <div id="community-features">
+                        <button class="community-btn">Visit Friends</button>
+                        <button class="community-btn">Study Groups</button>
+                        <button class="community-btn">Global Challenges</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div id="action-bar">
+            <button id="plant-btn" class="action-btn">
+                <span class="icon">🌱</span>
+                <span>Plant</span>
+            </button>
+            <button id="water-btn" class="action-btn">
+                <span class="icon">💧</span>
+                <span>Reflect</span>
+            </button>
+            <button id="harvest-btn" class="action-btn">
+                <span class="icon">🎯</span>
+                <span>Harvest</span>
+            </button>
+            <button id="expand-btn" class="action-btn">
+                <span class="icon">🏗️</span>
+                <span>Expand</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="seed-select-modal" class="modal">
+        <div class="modal-content">
+            <h2>Choose Sacred Seeds</h2>
+            <div id="seed-options"></div>
+            <button class="close-modal">Close</button>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

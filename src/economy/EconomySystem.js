@@ -478,11 +478,10 @@ export class EconomySystem {
                 'Marketplace': '0x1111111111111111111111111111111111111111'
             },
             
-            // Blockchain operations
+            // Blockchain operations (mock for production build)
             operations: {
                 mintCertificate: async (certificateData) => {
-                    console.log('🔗 Minting certificate NFT:', certificateData);
-                    // Mock minting process
+                    console.log('🔗 Minting certificate NFT (mock):', certificateData);
                     return {
                         tokenId: Date.now(),
                         transactionHash: '0x' + Math.random().toString(36).substring(2, 15),
@@ -493,8 +492,7 @@ export class EconomySystem {
                 },
                 
                 transferToken: async (from, to, amount) => {
-                    console.log('🔗 Transferring tokens:', { from, to, amount });
-                    // Mock transfer process
+                    console.log('🔗 Transferring tokens (mock):', { from, to, amount });
                     return {
                         transactionHash: '0x' + Math.random().toString(36).substring(2, 15),
                         blockNumber: Math.floor(Math.random() * 1000000),
@@ -504,8 +502,7 @@ export class EconomySystem {
                 },
                 
                 verifyOwnership: async (tokenId, address) => {
-                    console.log('🔗 Verifying ownership:', { tokenId, address });
-                    // Mock verification
+                    console.log('🔗 Verifying ownership (mock):', { tokenId, address });
                     return true;
                 }
             }

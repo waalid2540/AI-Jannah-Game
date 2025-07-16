@@ -7,6 +7,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: true,
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: {
+          vendor: ['three', 'gsap']
+        }
+      }
+    }
+  },
+  optimizeDeps: {
+    include: ['three', 'gsap']
   }
 })

@@ -1,109 +1,244 @@
-// AI Jannah Game - Main Entry Point
-import { GameEngine } from './engine/GameEngine.js';
-import { UIManager } from './managers/UIManager.js';
-import { AudioManager } from './managers/AudioManager.js';
-import { SaveManager } from './managers/SaveManager.js';
+// AI Jannah Game - Enterprise Main Entry Point
+import { GameCore } from './core/GameCore.js';
 
 class AIJannahGame {
     constructor() {
-        this.gameEngine = null;
-        this.uiManager = null;
-        this.audioManager = null;
-        this.saveManager = null;
+        this.gameCore = null;
         this.isLoaded = false;
+        this.version = '1.0.0-enterprise';
+        this.buildDate = new Date().toISOString();
+        this.isProduction = process.env.NODE_ENV === 'production';
+        
+        // Performance monitoring
+        this.performanceMetrics = {
+            initStartTime: 0,
+            initEndTime: 0,
+            loadTime: 0,
+            memoryUsage: 0,
+            renderingPerformance: 0
+        };
+        
+        // Error tracking
+        this.errorTracker = {
+            errors: [],
+            warnings: [],
+            maxErrors: 100,
+            
+            logError: (error, context = '') => {
+                const errorData = {
+                    message: error.message,
+                    stack: error.stack,
+                    context,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    url: window.location.href
+                };
+                
+                this.errorTracker.errors.push(errorData);
+                
+                if (this.errorTracker.errors.length > this.errorTracker.maxErrors) {
+                    this.errorTracker.errors.shift();
+                }
+                
+                console.error('🚨 Game Error:', errorData);
+                
+                // Send to analytics in production
+                if (this.isProduction) {
+                    this.sendErrorToAnalytics(errorData);
+                }
+            }
+        };
     }
 
     async init() {
         try {
-            // Show loading screen
-            this.showLoadingScreen();
+            this.performanceMetrics.initStartTime = performance.now();
             
-            // Initialize core systems
-            await this.initializeManagers();
+            console.log(`🚀 Initializing AI Jannah Enterprise Game v${this.version}`);
+            console.log(`📅 Build Date: ${this.buildDate}`);
+            console.log(`🔧 Environment: ${this.isProduction ? 'Production' : 'Development'}`);
             
-            // Load game data
-            await this.loadGameData();
+            // Show loading screen with enterprise branding
+            this.showEnterpriseLoadingScreen();
             
-            // Setup event listeners
-            this.setupEventListeners();
+            // Initialize enterprise game core
+            await this.initializeGameCore();
+            
+            // Setup advanced error handling
+            this.setupErrorHandling();
+            
+            // Setup performance monitoring
+            this.setupPerformanceMonitoring();
+            
+            // Load game data and start
+            await this.startGame();
             
             // Hide loading screen and show game
             this.hideLoadingScreen();
             
-            console.log('🌟 AI Jannah Game Initialized Successfully');
+            this.performanceMetrics.initEndTime = performance.now();
+            this.performanceMetrics.loadTime = this.performanceMetrics.initEndTime - this.performanceMetrics.initStartTime;
+            
+            console.log(`✅ AI Jannah Enterprise Game Initialized Successfully in ${this.performanceMetrics.loadTime.toFixed(2)}ms`);
             
         } catch (error) {
-            console.error('❌ Failed to initialize AI Jannah Game:', error);
+            this.errorTracker.logError(error, 'Game Initialization');
             this.showErrorScreen(error);
         }
     }
 
-    async initializeManagers() {
-        // Initialize Audio Manager
-        this.audioManager = new AudioManager();
-        await this.audioManager.init();
-
-        // Initialize Save Manager
-        this.saveManager = new SaveManager();
-        await this.saveManager.init();
-
-        // Initialize UI Manager
-        this.uiManager = new UIManager();
-        await this.uiManager.init();
-
-        // Initialize Game Engine
-        this.gameEngine = new GameEngine(this.uiManager, this.audioManager, this.saveManager);
-        await this.gameEngine.init();
+    async initializeGameCore() {
+        console.log('🎮 Initializing Enterprise Game Core');
+        
+        // Initialize the advanced game core
+        this.gameCore = new GameCore();
+        await this.gameCore.initialize();
+        
+        console.log('✅ Enterprise Game Core Initialized');
     }
 
-    async loadGameData() {
-        // Load player data
-        const playerData = await this.saveManager.loadPlayerData();
-        if (playerData) {
-            this.gameEngine.loadPlayerData(playerData);
+    async startGame() {
+        console.log('🌟 Starting AI Jannah Game');
+        
+        // The GameCore handles all game logic, networking, AI, etc.
+        // This is just the entry point
+        
+        this.isLoaded = true;
+        console.log('✅ Game Started Successfully');
+    }
+
+    setupErrorHandling() {
+        // Global error handler
+        window.addEventListener('error', (event) => {
+            this.errorTracker.logError(event.error, 'Global Error Handler');
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', (event) => {
+            this.errorTracker.logError(new Error(event.reason), 'Unhandled Promise Rejection');
+        });
+
+        // Performance issues handler
+        if ('performance' in window) {
+            const observer = new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+                entries.forEach(entry => {
+                    if (entry.duration > 1000) { // Slow operations
+                        console.warn(`🐌 Slow operation detected: ${entry.name} took ${entry.duration}ms`);
+                    }
+                });
+            });
+            
+            observer.observe({ entryTypes: ['measure', 'navigation'] });
+        }
+    }
+
+    setupPerformanceMonitoring() {
+        // Memory usage monitoring
+        if ('memory' in performance) {
+            setInterval(() => {
+                this.performanceMetrics.memoryUsage = performance.memory.usedJSHeapSize / 1048576; // MB
+                
+                // Log memory usage if it's getting high
+                if (this.performanceMetrics.memoryUsage > 100) {
+                    console.warn(`🔥 High memory usage: ${this.performanceMetrics.memoryUsage.toFixed(2)}MB`);
+                }
+            }, 5000);
         }
 
-        // Load Islamic content data
-        await this.gameEngine.loadIslamicContent();
+        // FPS monitoring
+        let lastTime = performance.now();
+        let frameCount = 0;
         
-        // Start game loop
-        this.gameEngine.start();
-    }
-
-    setupEventListeners() {
-        // Window events
-        window.addEventListener('beforeunload', () => {
-            this.saveManager.savePlayerData(this.gameEngine.getPlayerData());
-        });
-
-        window.addEventListener('resize', () => {
-            this.gameEngine.handleResize();
-        });
-
-        // Visibility change for prayer reminders
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.gameEngine.pause();
-            } else {
-                this.gameEngine.resume();
+        const measureFPS = () => {
+            frameCount++;
+            const now = performance.now();
+            
+            if (now - lastTime >= 1000) {
+                this.performanceMetrics.renderingPerformance = frameCount;
+                frameCount = 0;
+                lastTime = now;
+                
+                // Log FPS if it's getting low
+                if (this.performanceMetrics.renderingPerformance < 30) {
+                    console.warn(`🎯 Low FPS detected: ${this.performanceMetrics.renderingPerformance}fps`);
+                }
             }
-        });
+            
+            requestAnimationFrame(measureFPS);
+        };
+        
+        measureFPS();
     }
 
-    showLoadingScreen() {
+    showEnterpriseLoadingScreen() {
         const loadingScreen = document.getElementById('loading-screen');
         const progressBar = document.querySelector('.loading-progress');
         
-        // Animate loading progress
+        // Update loading screen with enterprise branding
+        const loadingContent = document.querySelector('.loading-content');
+        loadingContent.innerHTML = `
+            <div class="enterprise-logo">
+                <div class="islamic-pattern"></div>
+                <h1>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h1>
+                <h2>AI Jannah Enterprise</h2>
+                <p>Advanced Islamic Educational Gaming Platform</p>
+                <div class="version-info">
+                    <span>Version ${this.version}</span>
+                    <span>Enterprise Edition</span>
+                </div>
+            </div>
+            <div class="loading-progress-container">
+                <div class="loading-progress"></div>
+                <div class="loading-status">Initializing enterprise systems...</div>
+            </div>
+            <div class="loading-features">
+                <div class="feature">✨ Advanced AI Companion</div>
+                <div class="feature">🌍 Real-time Multiplayer</div>
+                <div class="feature">📚 Comprehensive Islamic Library</div>
+                <div class="feature">🎮 3D Immersive Graphics</div>
+                <div class="feature">🔐 Enterprise Security</div>
+            </div>
+        `;
+        
+        // Advanced loading progress simulation
+        const loadingSteps = [
+            { name: 'Initializing Core Systems', duration: 800 },
+            { name: 'Loading Islamic Content Database', duration: 1200 },
+            { name: 'Connecting to Network', duration: 600 },
+            { name: 'Initializing AI Companion', duration: 900 },
+            { name: 'Loading 3D Graphics Engine', duration: 1500 },
+            { name: 'Setting up Audio Systems', duration: 400 },
+            { name: 'Finalizing Setup', duration: 500 }
+        ];
+        
+        let currentStep = 0;
         let progress = 0;
-        const interval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress >= 100) {
+        const statusElement = document.querySelector('.loading-status');
+        
+        const updateProgress = () => {
+            if (currentStep >= loadingSteps.length) {
                 progress = 100;
-                clearInterval(interval);
+                statusElement.textContent = 'Ready! Launching AI Jannah...';
+                progressBar.style.width = '100%';
+                return;
             }
+            
+            const step = loadingSteps[currentStep];
+            statusElement.textContent = step.name;
+            
+            const stepProgress = (currentStep / loadingSteps.length) * 100;
+            progress = Math.min(stepProgress + (Math.random() * 10), (currentStep + 1) * (100 / loadingSteps.length));
+            
             progressBar.style.width = `${progress}%`;
-        }, 200);
+            
+            setTimeout(() => {
+                currentStep++;
+                updateProgress();
+            }, step.duration);
+        };
+        
+        updateProgress();
     }
 
     hideLoadingScreen() {

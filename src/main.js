@@ -74,7 +74,9 @@ class AIJannahGame {
             await this.startGame();
             
             // Hide loading screen and show game
-            this.hideLoadingScreen();
+            setTimeout(() => {
+                this.hideLoadingScreen();
+            }, 6000); // Wait for loading animation to complete
             
             this.performanceMetrics.initEndTime = performance.now();
             this.performanceMetrics.loadTime = this.performanceMetrics.initEndTime - this.performanceMetrics.initStartTime;
@@ -271,6 +273,28 @@ class AIJannahGame {
             </div>
         `;
     }
+
+    sendErrorToAnalytics(errorData) {
+        // Mock analytics error reporting
+        console.log('📊 Sending error to analytics:', errorData);
+        
+        // In production, this would send to your analytics service
+        try {
+            if (typeof fetch !== 'undefined') {
+                fetch('/api/analytics/error', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(errorData)
+                }).catch(err => {
+                    console.warn('Failed to send error to analytics:', err);
+                });
+            }
+        } catch (e) {
+            console.warn('Analytics error reporting failed:', e);
+        }
+    }
 }
 
 // Islamic time-based greetings
@@ -292,4 +316,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Make game globally accessible for debugging
     window.AIJannah = game;
+    
+    // Global functions for UI interactions
+    window.startLearning = () => {
+        console.log('🌱 Starting learning journey...');
+        document.querySelector('[data-panel="noor"]').click();
+    };
+    
+    window.exploreGarden = () => {
+        console.log('🌿 Exploring garden...');
+        document.querySelector('[data-panel="garden"]').click();
+    };
 });

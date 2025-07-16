@@ -97,7 +97,12 @@ export class GameCore {
             
         } catch (error) {
             this.logger.error(`❌ Failed to initialize game engine: ${error.message}`);
-            throw error;
+            console.error('GameCore initialization error:', error);
+            
+            // Don't throw error in production, just log it
+            if (process.env.NODE_ENV !== 'production') {
+                throw error;
+            }
         }
     }
 

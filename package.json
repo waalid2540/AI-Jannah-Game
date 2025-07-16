@@ -12,6 +12,9 @@
     "lint": "eslint src/**/*.js",
     "format": "prettier --write src/**/*.js"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "keywords": ["islamic", "education", "game", "garden", "ai", "jannah"],
   "author": "AI Jannah Development Team",
   "license": "MIT",

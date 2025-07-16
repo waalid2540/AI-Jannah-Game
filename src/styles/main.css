@@ -1101,6 +1101,592 @@ body {
     }
 }
 
+/* Islamic Adventure Game Styles */
+.adventure-game-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+    color: var(--primary-white);
+    overflow: hidden;
+}
+
+.game-header {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-bottom: 2px solid var(--primary-gold);
+}
+
+.game-header h1 {
+    text-align: center;
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.player-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 25px;
+    backdrop-filter: blur(5px);
+}
+
+.stat-label {
+    font-weight: 600;
+    color: var(--primary-gold);
+}
+
+.health-bar, .faith-bar {
+    width: 100px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff4444, #ff6666);
+    transition: width 0.3s ease;
+}
+
+.faith-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-gold), var(--light-gold));
+    transition: width 0.3s ease;
+}
+
+.game-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.location-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.location-card.unlocked:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-gold);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.location-card.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.location-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.location-card h3 {
+    color: var(--primary-gold);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.location-card p {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.location-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--primary-gold);
+}
+
+.lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    color: var(--primary-white);
+    font-weight: 600;
+}
+
+.quest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.quest-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.quest-card.available:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-gold);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.quest-card.completed {
+    opacity: 0.7;
+    border-color: var(--primary-green);
+}
+
+.quest-card h4 {
+    color: var(--primary-gold);
+    margin-bottom: 8px;
+}
+
+.quest-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 0.8rem;
+}
+
+.quest-rewards {
+    color: var(--primary-gold);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.completed-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-green);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.quest-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quest-header h2 {
+    color: var(--primary-gold);
+    margin-bottom: 10px;
+}
+
+.quest-timer {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.objectives-list {
+    list-style: none;
+    padding: 0;
+}
+
+.objectives-list li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-gold);
+    position: relative;
+}
+
+.objectives-list li.completed {
+    background: rgba(46, 139, 87, 0.3);
+    border-left-color: var(--primary-green);
+}
+
+.objectives-list li.completed::after {
+    content: '✅';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.objectives-list li.current {
+    border-left-color: var(--primary-gold);
+    background: rgba(212, 175, 55, 0.2);
+    animation: pulse 2s infinite;
+}
+
+.quest-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.quest-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quest-btn.primary {
+    background: var(--primary-gold);
+    color: var(--text-primary);
+}
+
+.quest-btn.secondary {
+    background: var(--primary-green);
+    color: white;
+}
+
+.quest-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.challenge-view {
+    text-align: center;
+    padding: 30px;
+}
+
+.challenge-content h2 {
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+}
+
+.spiritual-challenge, .leadership-challenge, .knowledge-challenge, .strategy-challenge, .general-challenge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+}
+
+.verse-display {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 2px solid var(--primary-gold);
+}
+
+.arabic-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.english-text {
+    font-style: italic;
+    color: var(--primary-white);
+    text-align: center;
+}
+
+.decision-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.decision-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-gold);
+    color: var(--primary-white);
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.decision-btn:hover {
+    background: var(--primary-gold);
+    color: var(--text-primary);
+}
+
+.strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.strategy-option {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-gold);
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.strategy-option:hover {
+    background: var(--primary-gold);
+    color: var(--text-primary);
+}
+
+.strategy-option h5 {
+    color: var(--primary-gold);
+    margin-bottom: 10px;
+}
+
+.strategy-option:hover h5 {
+    color: var(--text-primary);
+}
+
+.challenge-complete-btn {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.challenge-complete-btn:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+}
+
+.knowledge-answer {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    border: 2px solid var(--primary-gold);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-white);
+    margin: 15px 0;
+    font-size: 1rem;
+}
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 2px solid var(--primary-gold);
+}
+
+.action-btn {
+    background: var(--primary-gold);
+    color: var(--text-primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.welcome-content {
+    background: var(--gradient-bg);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 600px;
+    color: var(--primary-white);
+    border: 3px solid var(--primary-gold);
+}
+
+.welcome-content h1 {
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.welcome-content h2 {
+    color: var(--primary-gold);
+    margin: 20px 0 15px;
+}
+
+.welcome-content ul {
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 20px;
+}
+
+.welcome-content li {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.start-game-btn {
+    background: var(--primary-gold);
+    color: var(--text-primary);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.start-game-btn:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.quest-completion-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.dialog-content {
+    background: var(--gradient-bg);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    color: var(--primary-white);
+    border: 3px solid var(--primary-gold);
+}
+
+.dialog-content h2 {
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+}
+
+.rewards-display {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.rewards-display h4 {
+    color: var(--primary-gold);
+    margin-bottom: 15px;
+}
+
+.rewards-display p {
+    margin: 8px 0;
+    font-size: 1.1rem;
+}
+
+.continue-btn {
+    background: var(--primary-gold);
+    color: var(--text-primary);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.continue-btn:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design for Adventure Game */
+@media (max-width: 768px) {
+    .player-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .location-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quest-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .decision-options {
+        gap: 8px;
+    }
+    
+    .strategy-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {

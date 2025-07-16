@@ -39,7 +39,7 @@ export class GameplayManager {
                         { arabic: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', english: 'Praise be to Allah, Lord of the worlds' },
                         { arabic: 'وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ', english: 'I did not create jinn and humans except to worship Me' }
                     ]
-                }]),
+                }],
                 ['hadith-seed', {
                     id: 'hadith-seed',
                     name: 'Hadith Wisdom',
@@ -54,7 +54,7 @@ export class GameplayManager {
                         { arabic: 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ', english: 'Actions are but by intention' },
                         { arabic: 'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ', english: 'Whoever believes in Allah and the Last Day should speak good or remain silent' }
                     ]
-                }]),
+                }],
                 ['dua-seed', {
                     id: 'dua-seed',
                     name: 'Dua Garden',
@@ -69,7 +69,7 @@ export class GameplayManager {
                         { arabic: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', english: 'Our Lord, give us good in this world and good in the hereafter, and save us from the punishment of the Fire' },
                         { arabic: 'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي', english: 'My Lord, expand my chest and make my task easy for me' }
                     ]
-                }]),
+                }],
                 ['character-seed', {
                     id: 'character-seed',
                     name: 'Character Tree',
@@ -96,7 +96,7 @@ export class GameplayManager {
                     progress: 0,
                     reward: { hasanat: 20, knowledge: 10 },
                     completed: false
-                }]),
+                }],
                 ['daily-2', {
                     id: 'daily-2',
                     title: 'Knowledge Seeker',
@@ -108,7 +108,7 @@ export class GameplayManager {
                     progress: 0,
                     reward: { hasanat: 40, knowledge: 30 },
                     completed: false
-                }]),
+                }],
                 ['weekly-1', {
                     id: 'weekly-1',
                     title: 'Garden Master',
@@ -120,7 +120,7 @@ export class GameplayManager {
                     progress: 0,
                     reward: { hasanat: 100, knowledge: 75 },
                     completed: false
-                }])
+                }]
             ])
         };
         

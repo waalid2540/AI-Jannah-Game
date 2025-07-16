@@ -1,9 +1,11 @@
 // AI Jannah Game - Enterprise Main Entry Point
 import { GameCore } from './core/GameCore.js';
+import { GameplayManager } from './game/GameplayManager.js';
 
 class AIJannahGame {
     constructor() {
         this.gameCore = null;
+        this.gameplayManager = null;
         this.isLoaded = false;
         this.version = '1.0.0-enterprise';
         this.buildDate = new Date().toISOString();
@@ -102,8 +104,12 @@ class AIJannahGame {
     async startGame() {
         console.log('🌟 Starting AI Jannah Game');
         
+        // Initialize gameplay manager
+        this.gameplayManager = new GameplayManager();
+        await this.gameplayManager.init();
+        
         // The GameCore handles all game logic, networking, AI, etc.
-        // This is just the entry point
+        // The GameplayManager handles the actual game mechanics
         
         this.isLoaded = true;
         console.log('✅ Game Started Successfully');
